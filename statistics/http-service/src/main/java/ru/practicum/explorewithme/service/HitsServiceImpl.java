@@ -9,6 +9,7 @@ import ru.practicum.explorewithme.repository.HitRepository;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -24,10 +25,16 @@ public class HitsServiceImpl implements HitsService {
 
     @Override
     public Collection<StatsDto> getByParameters(LocalDateTime start, LocalDateTime end, String[] uris, boolean unique) {
-        if (unique) {
-            return hitRepository.getStatsUnique(start, end, uris);
+        List<String> urisList;
+        if (uris != null) {
+            urisList = List.of(uris);
         } else {
-            return hitRepository.getStats(start, end, uris);
+            urisList = null;
+        }
+        if (unique) {
+            return hitRepository.getStatsUnique(start, end, urisList);
+        } else {
+            return hitRepository.getStats(start, end, urisList);
         }
     }
 

@@ -11,6 +11,7 @@ import ru.practicum.explorewithme.service.HitsService;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Collection;
 
 @RestController
@@ -21,20 +22,20 @@ public class HitsController {
     private final HitsService hitsService;
 
     @PostMapping("/hit")
-    @ResponseStatus(value = HttpStatus.CREATED, reason = "Информация сохранена")
+    @ResponseStatus(HttpStatus.CREATED)
     public void create(@Valid @RequestBody HitDto hitDto) {
         log.info("Получен запрос @PostMapping(/hit) " + hitDto.toString());
         hitsService.create(hitDto);
     }
 
     @GetMapping("/stats")
-    @ResponseStatus(value = HttpStatus.OK, reason = "Статистика собрана")
+    @ResponseStatus(HttpStatus.OK)
     public Collection<StatsDto> getByParameters(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime start,
                                                 @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime end,
                                                 @RequestParam(required = false) String[] uris,
                                                 @RequestParam(defaultValue = "false") boolean unique) {
         log.info("Получен запрос @GetMapping(/stats)" + " start = " + start +
-                " end = " + end + " uris = " + uris);
+                " end = " + end + " uris = " + Arrays.toString(uris));
         return hitsService.getByParameters(start, end, uris, unique);
     }
 }
