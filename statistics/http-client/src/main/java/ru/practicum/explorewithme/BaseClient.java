@@ -23,10 +23,25 @@ public class BaseClient {
 
 
     protected ResponseEntity<Object> get(String path, Map<String, Object> parameters) {
-        return makeAndSendRequest(HttpMethod.POST, path, parameters, null);
+        return makeAndSendRequest(HttpMethod.GET, path, parameters);
     }
 
-    private <T> ResponseEntity<Object> makeAndSendRequest(HttpMethod method, String path, @Nullable Map<String, Object> parameters, @Nullable T body) {
+    private <T> ResponseEntity<Object> makeAndSendRequest(HttpMethod method, String path, @Nullable Map<String, Object> parameters) {
+        HttpEntity<T> requestEntity = new HttpEntity<>(null);
+        ResponseEntity<Object> statisticsResponse;
+        try {
+            if (parameters != null) {
+                statisticsResponse = rest.exchange(path, method, requestEntity, Object.class, parameters);
+            } else {
+                statisticsResponse = rest.exchange(path, method, requestEntity, Object.class);
+            }
+        } catch (HttpStatusCodeException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getResponseBodyAsByteArray());
+        }
+        return prepareResponse(statisticsResponse);
+    }
+
+    private <T> ResponseEntity<Object> makeAndSendRequest(HttpMethod method, String path, @Nullable Map<String, Object> parameters, T body) {
         HttpEntity<T> requestEntity = new HttpEntity<>(body);
         ResponseEntity<Object> statisticsResponse;
         try {
