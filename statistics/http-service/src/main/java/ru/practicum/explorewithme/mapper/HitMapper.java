@@ -1,11 +1,13 @@
 package ru.practicum.explorewithme.mapper;
 
+import org.springframework.stereotype.Component;
 import ru.practicum.explorewithme.dto.HitDto;
 import ru.practicum.explorewithme.model.Hit;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+@Component
 public class HitMapper {
 
     private final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
