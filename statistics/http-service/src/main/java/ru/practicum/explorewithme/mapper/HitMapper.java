@@ -11,7 +11,7 @@ public class HitMapper {
     private final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public Hit toHit(HitDto hitDto) {
-        if ( hitDto == null ) {
+        if (hitDto == null) {
             return null;
         }
         Hit hit = new Hit();
