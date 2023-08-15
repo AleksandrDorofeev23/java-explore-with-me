@@ -14,10 +14,13 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 
+import static ru.practicum.explorewithme.utils.Constants.DATA_TIME_FORMAT;
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-public class HitsController {
+public class
+HitsController {
 
     private final HitsService hitsService;
 
@@ -30,8 +33,8 @@ public class HitsController {
 
     @GetMapping("/stats")
     @ResponseStatus(HttpStatus.OK)
-    public Collection<StatsDto> getByParameters(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime start,
-                                                @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime end,
+    public Collection<StatsDto> getByParameters(@RequestParam @DateTimeFormat(pattern = DATA_TIME_FORMAT) LocalDateTime start,
+                                                @RequestParam @DateTimeFormat(pattern = DATA_TIME_FORMAT) LocalDateTime end,
                                                 @RequestParam(required = false) String[] uris,
                                                 @RequestParam(defaultValue = "false") boolean unique) {
         log.info("Получен запрос @GetMapping(/stats)" + " start = " + start +
