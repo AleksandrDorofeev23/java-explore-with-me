@@ -32,7 +32,6 @@ HitsController {
     }
 
     @GetMapping("/stats")
-    @ResponseStatus(HttpStatus.OK)
     public Collection<StatsDto> getByParameters(@RequestParam @DateTimeFormat(pattern = DATA_TIME_FORMAT) LocalDateTime start,
                                                 @RequestParam @DateTimeFormat(pattern = DATA_TIME_FORMAT) LocalDateTime end,
                                                 @RequestParam(required = false) String[] uris,
