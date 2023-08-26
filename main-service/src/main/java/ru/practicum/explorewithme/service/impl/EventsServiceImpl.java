@@ -277,7 +277,7 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
-    public Collection<EventShortDto> getAllPublic(String text, List<Long> categories, boolean paid,
+    public Collection<EventShortDto> getAllPublic(String text, List<Long> categories, Boolean paid,
                                                   LocalDateTime rangeStart, LocalDateTime rangeEnd,
                                                   boolean onlyAvailable, String sort, int from, int size,
                                                   HttpServletRequest httpServletRequest) {

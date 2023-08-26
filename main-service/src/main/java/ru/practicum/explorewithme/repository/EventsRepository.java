@@ -41,7 +41,7 @@ public interface EventsRepository extends JpaRepository<Event, Long> {
     )
     List<Event> getPublicEvents(String text,
                                 List<Long> categories,
-                                boolean paid,
+                                Boolean paid,
                                 LocalDateTime rangeStart,
                                 LocalDateTime rangeEnd,
                                 Boolean onlyAvailable,

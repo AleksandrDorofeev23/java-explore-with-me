@@ -27,7 +27,7 @@ public interface EventsService {
     EventRequestStatusUpdateResult updateRequests(long userId, long eventId,
                                                           EventRequestStatusUpdateRequest requestsStatuses);
 
-    Collection<EventShortDto> getAllPublic(String text, List<Long> categories, boolean paid,
+    Collection<EventShortDto> getAllPublic(String text, List<Long> categories, Boolean paid,
                                            LocalDateTime rangeStart, LocalDateTime rangeEnd,
                                            boolean onlyAvailable, String sort, int from, int size,
                                            HttpServletRequest httpServletRequest);

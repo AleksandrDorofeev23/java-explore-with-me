@@ -27,7 +27,7 @@ public class PublicEvents {
     @GetMapping
     public Collection<EventShortDto> getAllPublic(@RequestParam(required = false) String text,
                                                   @RequestParam(required = false) List<Long> categories,
-                                                  @RequestParam(required = false) boolean paid,
+                                                  @RequestParam(required = false) Boolean paid,
                                                   @RequestParam(required = false)
                                                   @DateTimeFormat(pattern = DATA_TIME_FORMAT) LocalDateTime rangeStart,
                                                   @RequestParam(required = false)
