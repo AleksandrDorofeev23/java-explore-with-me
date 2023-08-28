@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.explorewithme.dto.HitDto;
 import ru.practicum.explorewithme.dto.StatsDto;
+import ru.practicum.explorewithme.exception.TimeException;
 import ru.practicum.explorewithme.mapper.HitMapper;
 import ru.practicum.explorewithme.repository.HitRepository;
 
@@ -25,6 +26,9 @@ public class HitsServiceImpl implements HitsService {
 
     @Override
     public Collection<StatsDto> getByParameters(LocalDateTime start, LocalDateTime end, String[] uris, boolean unique) {
+        if (end.isBefore(start)) {
+            throw new TimeException("Дата начала должна быть раньше даты окончания");
+        }
         List<String> urisList;
         if (uris != null) {
             urisList = List.of(uris);
