@@ -23,8 +23,8 @@ public class AdminUsers {
 
     @GetMapping()
     public Collection<UserDto> getAll(@RequestParam(required = false) List<Long> ids,
-                                      @RequestParam(defaultValue = "0") @Min(0) int from,
-                                      @RequestParam(defaultValue = "10") @Min(1) int size) {
+                                      @RequestParam(defaultValue = "0") @Min(0) Integer from,
+                                      @RequestParam(defaultValue = "10") @Min(1) Integer size) {
         log.info("Получен запрос @GetMapping(/admin/users) {} {} {}", ids, from, size);
         return usersService.getAll(ids, from, size);
     }
@@ -38,7 +38,7 @@ public class AdminUsers {
 
     @DeleteMapping("/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable long userId) {
+    public void delete(@PathVariable Long userId) {
         log.info("Получен запрос @DeleteMapping(/admin/users/{}) ", userId);
         usersService.delete(userId);
     }

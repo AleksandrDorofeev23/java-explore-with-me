@@ -20,7 +20,7 @@ public class Event {
     @JoinColumn(name = "category_id")
     private Category category;
     @Column(name = "confirmed_requests")
-    private long confirmedRequests;
+    private Long confirmedRequests;
     @Column(name = "created")
     private LocalDateTime createdOn;
     @Column(name = "description")
@@ -40,7 +40,7 @@ public class Event {
     @Column(name = "paid")
     private Boolean paid;
     @Column(name = "participant_limit")
-    private long participantLimit;
+    private Long participantLimit;
     @Column(name = "published")
     private LocalDateTime publishedOn;
     @Column(name = "moderation")

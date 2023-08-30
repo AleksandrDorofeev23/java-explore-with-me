@@ -18,22 +18,21 @@ public class PrivateRequests {
     private final RequestsService requestsService;
 
     @GetMapping
-    public Collection<ParticipationRequestDto> getById(@PathVariable long userId) {
+    public Collection<ParticipationRequestDto> getById(@PathVariable Long userId) {
         log.info("Получен запрос @GetMapping(/users/{}/requests)", userId);
         return requestsService.getById(userId);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ParticipationRequestDto create(@PathVariable long userId, @RequestParam long eventId) {
+    public ParticipationRequestDto create(@PathVariable Long userId, @RequestParam Long eventId) {
         log.info("Получен запрос @PostMapping(/users/{}/requests) {}", userId, eventId);
         return requestsService.create(userId, eventId);
     }
 
     @PatchMapping("/{requestId}/cancel")
-    public ParticipationRequestDto update(@PathVariable long userId, @PathVariable long requestId) {
+    public ParticipationRequestDto update(@PathVariable Long userId, @PathVariable Long requestId) {
         log.info("Получен запрос @PatchMapping(/users/{}/requests/{}/cancel)", userId, requestId);
         return requestsService.update(userId, requestId);
     }
-
 }

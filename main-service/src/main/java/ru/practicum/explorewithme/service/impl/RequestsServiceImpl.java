@@ -30,14 +30,14 @@ public class RequestsServiceImpl implements RequestsService {
     private final EventsRepository eventsRepository;
 
     @Override
-    public Collection<ParticipationRequestDto> getById(long userId) {
+    public Collection<ParticipationRequestDto> getById(Long userId) {
         User user = usersRepository.findById(userId).orElseThrow(()
                 -> new NotFoundException("Такого пользователя не существует"));
         return requestsRepository.findByRequester(user).stream().map(requestsMapper::toDto).collect(Collectors.toList());
     }
 
     @Override
-    public ParticipationRequestDto create(long userId, long eventId) {
+    public ParticipationRequestDto create(Long userId, Long eventId) {
         User user = usersRepository.findById(userId).orElseThrow(()
                 -> new NotFoundException("Такого пользователя не существует"));
         Event event = eventsRepository.findById(eventId).orElseThrow(()
@@ -45,7 +45,7 @@ public class RequestsServiceImpl implements RequestsService {
         if (requestsRepository.existsByRequester_idAndEvent_id(userId, eventId)) {
             throw new RequestValidException("Такой запрос уже существует");
         }
-        if (event.getInitiator().getId() == userId) {
+        if (event.getInitiator().getId().equals(userId)) {
             throw new RequestValidException("Нельзя участвовать в своем событии");
         }
         if (!event.getState().equals(State.PUBLISHED)) {
@@ -69,7 +69,7 @@ public class RequestsServiceImpl implements RequestsService {
     }
 
     @Override
-    public ParticipationRequestDto update(long userId, long requestId) {
+    public ParticipationRequestDto update(Long userId, Long requestId) {
         usersRepository.findById(userId).orElseThrow(()
                 -> new NotFoundException("Такого пользователя не существует"));
         Request request = requestsRepository.findById(requestId).orElseThrow(()

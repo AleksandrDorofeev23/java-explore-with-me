@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class NewCompilationDto {
     private List<Long> events;
-    private boolean pinned = false;
+    private Boolean pinned = false;
     @NotBlank
     @Size(min = 1, max = 50)
     private String title;

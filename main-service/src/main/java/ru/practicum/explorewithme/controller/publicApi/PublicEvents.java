@@ -32,10 +32,10 @@ public class PublicEvents {
                                                   @DateTimeFormat(pattern = DATA_TIME_FORMAT) LocalDateTime rangeStart,
                                                   @RequestParam(required = false)
                                                   @DateTimeFormat(pattern = DATA_TIME_FORMAT) LocalDateTime rangeEnd,
-                                                  @RequestParam(defaultValue = "false") boolean onlyAvailable,
+                                                  @RequestParam(defaultValue = "false") Boolean onlyAvailable,
                                                   @RequestParam(required = false) String sort,
-                                                  @RequestParam(defaultValue = "0") @Min(0) int from,
-                                                  @RequestParam(defaultValue = "10") @Min(1) int size,
+                                                  @RequestParam(defaultValue = "0") @Min(0) Integer from,
+                                                  @RequestParam(defaultValue = "10") @Min(1) Integer size,
                                                   HttpServletRequest httpServletRequest) {
         log.info("Получен запрос @GetMapping(/events) {} {} {} {} {} {} {} {} {}", text, categories, paid, rangeStart,
                 rangeEnd, onlyAvailable, sort, from, size);
@@ -43,7 +43,7 @@ public class PublicEvents {
     }
 
     @GetMapping("/{id}")
-    public EventFullDto getById(@PathVariable long id, HttpServletRequest httpServletRequest) {
+    public EventFullDto getById(@PathVariable Long id, HttpServletRequest httpServletRequest) {
         log.info("Получен запрос @GetMapping(/events/{})", id);
         return eventsService.getById(id, httpServletRequest);
     }

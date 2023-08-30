@@ -20,5 +20,4 @@ public interface HitRepository extends JpaRepository<Hit, Long> {
     @Query("SELECT new ru.practicum.explorewithme.dto.StatsDto(hit.app, hit.uri, COUNT(hit.ip) AS c) FROM Hit hit "
             + "WHERE hit.timestamp BETWEEN :start AND :end AND (hit.uri IN :uris OR :uris IS NULL) GROUP BY hit.app, hit.uri ORDER BY c DESC")
     Collection<StatsDto> getStats(LocalDateTime start, LocalDateTime end, List<String> uris);
-
 }

@@ -40,12 +40,12 @@ public class CompilationsServiceImpl implements CompilationsService {
     }
 
     @Override
-    public void delete(long compId) {
+    public void delete(Long compId) {
         compilationsRepository.deleteById(compId);
     }
 
     @Override
-    public CompilationDto update(long compId, UpdateCompilationRequest updateCompilationRequest) {
+    public CompilationDto update(Long compId, UpdateCompilationRequest updateCompilationRequest) {
         Compilation compilationOld = compilationsRepository.findById(compId).orElseThrow(()
                 -> new NotFoundException("Такой подборки нет"));
         List<Event> events;
@@ -56,13 +56,13 @@ public class CompilationsServiceImpl implements CompilationsService {
         if (updateCompilationRequest.getTitle() != null) {
             compilationOld.setTitle(updateCompilationRequest.getTitle());
         }
-        compilationOld.setPinned(updateCompilationRequest.isPinned());
+        compilationOld.setPinned(updateCompilationRequest.getPinned());
         compilationOld = compilationsRepository.save(compilationOld);
         return compilationsMapper.toDto(compilationOld);
     }
 
     @Override
-    public Collection<CompilationDto> getAll(boolean pinned, int from, int size) {
+    public Collection<CompilationDto> getAll(Boolean pinned, Integer from, Integer size) {
         Pageable pageable = PageRequest.of(from, size);
         if (pinned) {
             return compilationsRepository.findByPinned(pinned, pageable).stream().map(compilationsMapper::toDto).collect(Collectors.toList());
@@ -72,7 +72,7 @@ public class CompilationsServiceImpl implements CompilationsService {
     }
 
     @Override
-    public CompilationDto getById(long compId) {
+    public CompilationDto getById(Long compId) {
         Compilation compilation = compilationsRepository.findById(compId).orElseThrow(()
                 -> new NotFoundException("Такой подборки нет"));
         return compilationsMapper.toDto(compilation);

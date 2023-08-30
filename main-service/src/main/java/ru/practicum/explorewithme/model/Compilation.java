@@ -22,9 +22,9 @@ public class Compilation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
     @Column(name = "pinned")
-    private boolean pinned;
+    private Boolean pinned;
     @Column(name = "title")
     private String title;
 }

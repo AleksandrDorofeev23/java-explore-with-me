@@ -18,14 +18,14 @@ public class PublicCategories {
     private final CategoriesService categoriesService;
 
     @GetMapping
-    public Collection<CategoryDto> getAll(@RequestParam(defaultValue = "0") @Min(0) int from,
-                                          @RequestParam(defaultValue = "10") @Min(1) int size) {
+    public Collection<CategoryDto> getAll(@RequestParam(defaultValue = "0") @Min(0) Integer from,
+                                          @RequestParam(defaultValue = "10") @Min(1) Integer size) {
         log.info("Получен запрос @GetMapping(/categories) {} {}", from, size);
         return categoriesService.getAll(from, size);
     }
 
     @GetMapping("/{catId}")
-    public CategoryDto getById(@PathVariable long catId) {
+    public CategoryDto getById(@PathVariable Long catId) {
         log.info("Получен запрос @GetMapping(/categories/{})", catId);
         return categoriesService.getById(catId);
     }

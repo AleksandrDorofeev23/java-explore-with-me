@@ -20,7 +20,7 @@ public class CompilationsMapper {
         }
         Compilation compilation = new Compilation();
         compilation.setTitle(newCompilationDto.getTitle());
-        compilation.setPinned(newCompilationDto.isPinned());
+        compilation.setPinned(newCompilationDto.getPinned());
         return compilation;
     }
 
@@ -31,7 +31,7 @@ public class CompilationsMapper {
         CompilationDto compilationDto = new CompilationDto();
         compilationDto.setTitle(compilation.getTitle());
         compilationDto.setId(compilation.getId());
-        compilationDto.setPinned(compilation.isPinned());
+        compilationDto.setPinned(compilation.getPinned());
         List<EventShortDto> eventList = null;
         if (compilation.getEvents() != null) {
             eventList = compilation.getEvents().stream().map(eventMapper::toShortDto).collect(Collectors.toList());

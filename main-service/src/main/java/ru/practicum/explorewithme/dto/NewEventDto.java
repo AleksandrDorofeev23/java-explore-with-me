@@ -17,7 +17,7 @@ public class NewEventDto {
     @Size(min = 20, max = 2000)
     private String annotation;
     @NotNull
-    private long category;
+    private Long category;
     @NotNull
     @Size(min = 20, max = 7000)
     private String description;
@@ -27,7 +27,7 @@ public class NewEventDto {
     @NotNull
     private LocationDto location;
     private Boolean paid = false;
-    private long participantLimit = 0L;
+    private Long participantLimit = 0L;
     private Boolean requestModeration = true;
     @NotNull
     @Size(min = 3, max = 120)

@@ -29,6 +29,7 @@ public class EventMapper {
         event.setParticipantLimit(eventDto.getParticipantLimit());
         event.setRequestModeration(eventDto.getRequestModeration());
         event.setTitle(eventDto.getTitle());
+        event.setConfirmedRequests(0L);
         return event;
     }
 

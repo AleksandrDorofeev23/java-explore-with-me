@@ -10,11 +10,11 @@ public interface CompilationsService {
 
     CompilationDto create(NewCompilationDto newCompilationDto);
 
-    void delete(long compId);
+    void delete(Long compId);
 
-    CompilationDto update(long compId, UpdateCompilationRequest updateCompilationRequest);
+    CompilationDto update(Long compId, UpdateCompilationRequest updateCompilationRequest);
 
-    Collection<CompilationDto> getAll(boolean pinned, int from, int size);
+    Collection<CompilationDto> getAll(Boolean pinned, Integer from, Integer size);
 
-    CompilationDto getById(long compId);
+    CompilationDto getById(Long compId);
 }

@@ -16,6 +16,7 @@ import ru.practicum.explorewithme.repository.EventsRepository;
 import ru.practicum.explorewithme.service.CategoriesService;
 
 import java.util.Collection;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,7 +37,7 @@ public class CategoriesServiceImpl implements CategoriesService {
     }
 
     @Override
-    public void delete(long catId) {
+    public void delete(Long catId) {
         Category category = categoryMapper.toModel(getById(catId));
         if (eventsRepository.existsByCategory(category)) {
             throw new RelatedException("Категория связана с событием");
@@ -45,11 +46,11 @@ public class CategoriesServiceImpl implements CategoriesService {
     }
 
     @Override
-    public CategoryDto update(long catId, NewCategoryDto newCategoryDto) {
+    public CategoryDto update(Long catId, NewCategoryDto newCategoryDto) {
         Category category = categoriesRepository.findById(catId).orElseThrow(()
                 -> new NotFoundException("Такой категории нет"));
         if (categoriesRepository.existsByName(newCategoryDto.getName())) {
-            if (categoriesRepository.findByName(newCategoryDto.getName()).get().getId() != catId)
+            if (!Objects.equals(categoriesRepository.findByName(newCategoryDto.getName()).get().getId(), catId))
                 throw new AlreadyExistsException("Такая категория уже есть");
         }
         category.setName(newCategoryDto.getName());
@@ -57,13 +58,13 @@ public class CategoriesServiceImpl implements CategoriesService {
     }
 
     @Override
-    public Collection<CategoryDto> getAll(int from, int size) {
+    public Collection<CategoryDto> getAll(Integer from, Integer size) {
         Pageable pageable = PageRequest.of(from, size);
         return categoriesRepository.findAll(pageable).stream().map(categoryMapper::toDto).collect(Collectors.toList());
     }
 
     @Override
-    public CategoryDto getById(long catId) {
+    public CategoryDto getById(Long catId) {
         Category category = categoriesRepository.findById(catId).orElseThrow(()
                 -> new NotFoundException("Такой категории нет"));
         return categoryMapper.toDto(category);

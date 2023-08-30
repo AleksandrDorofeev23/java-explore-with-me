@@ -32,15 +32,15 @@ public class AdminEvents {
                                                 @DateTimeFormat(pattern = DATA_TIME_FORMAT) LocalDateTime rangeStart,
                                                 @RequestParam(required = false)
                                                 @DateTimeFormat(pattern = DATA_TIME_FORMAT) LocalDateTime rangeEnd,
-                                                @RequestParam(defaultValue = "0") @Min(0) int from,
-                                                @RequestParam(defaultValue = "10") @Min(1) int size) {
+                                                @RequestParam(defaultValue = "0") @Min(0) Integer from,
+                                                @RequestParam(defaultValue = "10") @Min(1) Integer size) {
         log.info("Получен запрос @GetMapping(/admin/events) {} {} {} {} {} {} {}", users, states, categories, rangeStart,
                 rangeEnd, from, size);
         return eventsService.getAllAdmin(users, states, categories, rangeStart, rangeEnd, from, size);
     }
 
     @PatchMapping("/{eventId}")
-    public EventFullDto update(@PathVariable long eventId,
+    public EventFullDto update(@PathVariable Long eventId,
                                @Valid @RequestBody UpdateEventAdminRequest updateEventAdminRequest) {
         log.info("Получен запрос @PatchMapping(/admin/events/{})" + updateEventAdminRequest.toString(), eventId);
         return eventsService.update(eventId, updateEventAdminRequest);

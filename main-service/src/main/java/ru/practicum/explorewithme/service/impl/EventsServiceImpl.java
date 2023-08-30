@@ -44,18 +44,16 @@ public class EventsServiceImpl implements EventsService {
 
     @Override
     public Collection<EventFullDto> getAllAdmin(List<Long> users, List<String> states, List<Long> categories,
-                                                LocalDateTime rangeStart, LocalDateTime rangeEnd, int from, int size) {
+                                                LocalDateTime rangeStart, LocalDateTime rangeEnd, Integer from, Integer size) {
         Pageable pageable = PageRequest.of(from, size);
         List<State> statesEnum = new ArrayList<>();
         if (states != null) {
             for (String str : states) {
                 if (str.equalsIgnoreCase(State.PUBLISHED.toString())) {
                     statesEnum.add(State.PUBLISHED);
-                }
-                if (str.equalsIgnoreCase(State.PENDING.toString())) {
+                } else if (str.equalsIgnoreCase(State.PENDING.toString())) {
                     statesEnum.add(State.PENDING);
-                }
-                if (str.equalsIgnoreCase(State.CANCELED.toString())) {
+                } else if (str.equalsIgnoreCase(State.CANCELED.toString())) {
                     statesEnum.add(State.CANCELED);
                 }
             }
@@ -67,7 +65,7 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
-    public EventFullDto update(long eventId, UpdateEventAdminRequest dto) {
+    public EventFullDto update(Long eventId, UpdateEventAdminRequest dto) {
         Event event = eventsRepository.findById(eventId).orElseThrow(()
                 -> new NotFoundException("Такого события нет"));
         if (dto.getEventDate() != null) {
@@ -105,8 +103,8 @@ public class EventsServiceImpl implements EventsService {
             event.setDescription(dto.getDescription());
         }
         if (dto.getLocation() != null) {
-            if (event.getLocation().getLat() != dto.getLocation().getLat() ||
-                    event.getLocation().getLon() != dto.getLocation().getLon()) {
+            if (!event.getLocation().getLat().equals(dto.getLocation().getLat()) ||
+                    !event.getLocation().getLon().equals(dto.getLocation().getLon())) {
                 Location location = locationRepository.save(eventMapper.toLocationModel(dto.getLocation()));
                 event.setLocation(location);
             }
@@ -128,14 +126,14 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
-    public Collection<EventShortDto> getAllByUser(long userId, int from, int size) {
+    public Collection<EventShortDto> getAllByUser(Long userId, Integer from, Integer size) {
         Pageable pageable = PageRequest.of(from, size);
         List<Event> events = eventsRepository.findByInitiator_id(userId, pageable);
         return events.stream().map(eventMapper::toShortDto).collect(Collectors.toList());
     }
 
     @Override
-    public EventFullDto create(long userId, NewEventDto newEventDto) {
+    public EventFullDto create(Long userId, NewEventDto newEventDto) {
         Event event = eventMapper.toModel(newEventDto);
         if (newEventDto.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
             throw new TimeException("Дата события должно быть не раньше 2 часов от текущего времени");
@@ -154,14 +152,14 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
-    public EventFullDto getByUserById(long userId, long eventId) {
+    public EventFullDto getByUserById(Long userId, Long eventId) {
         Event event = eventsRepository.findByIdAndInitiator_id(eventId, userId).orElseThrow(()
                 -> new NotFoundException("Событие не найдено"));
         return eventMapper.toFullDto(event);
     }
 
     @Override
-    public EventFullDto updateByUser(long userId, long eventId, UpdateEventUserRequest dto) {
+    public EventFullDto updateByUser(Long userId, Long eventId, UpdateEventUserRequest dto) {
         Event event = eventsRepository.findByIdAndInitiator_id(eventId, userId).orElseThrow(()
                 -> new NotFoundException("Событие не найдено"));
         if (dto.getEventDate() != null) {
@@ -193,8 +191,8 @@ public class EventsServiceImpl implements EventsService {
             event.setDescription(dto.getDescription());
         }
         if (dto.getLocation() != null) {
-            if (event.getLocation().getLat() != dto.getLocation().getLat() ||
-                    event.getLocation().getLon() != dto.getLocation().getLon()) {
+            if (!event.getLocation().getLat().equals(dto.getLocation().getLat()) ||
+                    !event.getLocation().getLon().equals(dto.getLocation().getLon())) {
                 Location location = locationRepository.save(eventMapper.toLocationModel(dto.getLocation()));
                 event.setLocation(location);
             }
@@ -216,14 +214,14 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
-    public Collection<ParticipationRequestDto> getRequestsByEventByUser(long userId, long eventId) {
+    public Collection<ParticipationRequestDto> getRequestsByEventByUser(Long userId, Long eventId) {
         eventsRepository.findByIdAndInitiator_id(eventId, userId).orElseThrow(()
                 -> new NotFoundException("Событие не найдено"));
         return requestsRepository.findByEvent_id(eventId).stream().map(requestsMapper::toDto).collect(Collectors.toList());
     }
 
     @Override
-    public EventRequestStatusUpdateResult updateRequests(long userId, long eventId,
+    public EventRequestStatusUpdateResult updateRequests(Long userId, Long eventId,
                                                          EventRequestStatusUpdateRequest requestsStatuses) {
         Event event = eventsRepository.findByIdAndInitiator_id(eventId, userId).orElseThrow(()
                 -> new NotFoundException("Событие не найдено"));
@@ -237,7 +235,7 @@ public class EventsServiceImpl implements EventsService {
             }
         }
         if (requestsStatuses.getStatus().equals(Status.CONFIRMED.toString())) {
-            if (event.getParticipantLimit() == event.getConfirmedRequests() && event.getParticipantLimit() > 0) {
+            if (event.getParticipantLimit().equals(event.getConfirmedRequests()) && event.getParticipantLimit() > 0) {
                 throw new RequestValidException("Достигнут лимит участников");
             }
             if (event.getParticipantLimit() == 0L || requestList.size() <= available) {
@@ -279,7 +277,7 @@ public class EventsServiceImpl implements EventsService {
     @Override
     public Collection<EventShortDto> getAllPublic(String text, List<Long> categories, Boolean paid,
                                                   LocalDateTime rangeStart, LocalDateTime rangeEnd,
-                                                  boolean onlyAvailable, String sort, int from, int size,
+                                                  Boolean onlyAvailable, String sort, Integer from, Integer size,
                                                   HttpServletRequest httpServletRequest) {
         Pageable pageable = PageRequest.of(from, size);
         List<Event> events;
@@ -295,7 +293,7 @@ public class EventsServiceImpl implements EventsService {
                 pageable = PageRequest.of(from, size, Sort.by("views").ascending());
             }
         }
-        events = eventsRepository.getPublicEvents(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, pageable);
+        events = eventsRepository.findAllPublic(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, pageable);
         Map<String, Long> mapHit = getMapHit(events.stream().map(a -> "/events/" + a.getId().toString()).toArray(String[]::new));
         List<EventShortDto> eventShortDtoList = events.stream().map(a -> {
             Long hits = mapHit.get("/events/" + a.getId().toString());
@@ -303,29 +301,29 @@ public class EventsServiceImpl implements EventsService {
             eventShortDto.setViews(Objects.requireNonNullElse(hits, 0L));
             return eventShortDto;
         }).collect(Collectors.toList());
-        HitDto statDto = HitDto.builder().app("main-service")
+        HitDto hitDto = HitDto.builder().app("main-service")
                 .uri(httpServletRequest.getRequestURI())
                 .ip(httpServletRequest.getRemoteAddr())
                 .timestamp(LocalDateTime.now().format(FORMAT))
                 .build();
-        client.create(statDto);
+        client.create(hitDto);
         return eventShortDtoList;
     }
 
     @Override
-    public EventFullDto getById(long id, HttpServletRequest httpServletRequest) {
+    public EventFullDto getById(Long id, HttpServletRequest httpServletRequest) {
         Event event = eventsRepository.findByIdAndState(id, State.PUBLISHED).orElseThrow(()
                 -> new NotFoundException("Такого события нет"));
         EventFullDto eventDto = eventMapper.toFullDto(event);
         Map<String, Long> mapHit = getMapHit(new String[]{"/events/" + event.getId().toString()});
         Long hits = mapHit.get("/events/" + event.getId().toString());
         eventDto.setViews(Objects.requireNonNullElse(hits, 0L));
-        HitDto statDto = HitDto.builder().app("main-service")
+        HitDto hitDto = HitDto.builder().app("main-service")
                 .uri(httpServletRequest.getRequestURI())
                 .ip(httpServletRequest.getRemoteAddr())
                 .timestamp(LocalDateTime.now().format(FORMAT))
                 .build();
-        client.create(statDto);
+        client.create(hitDto);
         return eventDto;
     }
 
@@ -342,6 +340,4 @@ public class EventsServiceImpl implements EventsService {
         }
         return mapHit;
     }
-
-
 }

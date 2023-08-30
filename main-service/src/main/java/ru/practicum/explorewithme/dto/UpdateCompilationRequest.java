@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 public class UpdateCompilationRequest {
     private List<Long> events;
-    private boolean pinned = false;
+    private Boolean pinned = false;
     @Size(min = 1, max = 50)
     private String title;
 }

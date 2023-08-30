@@ -15,21 +15,21 @@ import static ru.practicum.explorewithme.utils.Constants.DATA_TIME_FORMAT;
 public class EventFullDto {
     private String annotation;
     private CategoryDto category;
-    private long confirmedRequests;
+    private Long confirmedRequests;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATA_TIME_FORMAT)
     private LocalDateTime createdOn;
     private String description;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATA_TIME_FORMAT)
     private LocalDateTime eventDate;
-    private long id;
+    private Long id;
     private UserShortDto initiator;
     private LocationDto location;
-    private boolean paid;
-    private long participantLimit;
+    private Boolean paid;
+    private Long participantLimit;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATA_TIME_FORMAT)
     private LocalDateTime publishedOn;
-    private boolean requestModeration;
+    private Boolean requestModeration;
     private String state;
     private String title;
-    private long views;
+    private Long views;
 }

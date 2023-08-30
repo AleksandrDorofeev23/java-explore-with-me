@@ -12,10 +12,9 @@ public interface RequestsRepository extends JpaRepository<Request, Long> {
 
     List<Request> findByRequester(User user);
 
-    boolean existsByRequester_idAndEvent_id(long userId, long eventId);
+    boolean existsByRequester_idAndEvent_id(Long userId, Long eventId);
 
-    List<Request> findByEvent_id(long eventId);
+    List<Request> findByEvent_id(Long eventId);
 
     List<Request> findByIdIn(List<Long> requestIds);
-
 }

@@ -18,15 +18,15 @@ public class PublicCompilations {
     private final CompilationsService compilationsService;
 
     @GetMapping
-    public Collection<CompilationDto> getAll(@RequestParam(defaultValue = "false") boolean pinned,
-                                             @RequestParam(defaultValue = "0") @Min(0) int from,
-                                             @RequestParam(defaultValue = "10") @Min(1) int size) {
+    public Collection<CompilationDto> getAll(@RequestParam(defaultValue = "false") Boolean pinned,
+                                             @RequestParam(defaultValue = "0") @Min(0) Integer from,
+                                             @RequestParam(defaultValue = "10") @Min(1) Integer size) {
         log.info("Получен запрос @GetMapping(/compilations) {} {} {}", pinned, from, size);
         return compilationsService.getAll(pinned, from, size);
     }
 
     @GetMapping("/{compId}")
-    public CompilationDto getById(@PathVariable long compId) {
+    public CompilationDto getById(@PathVariable Long compId) {
         log.info("Получен запрос @GetMapping(/compilations/{})", compId);
         return compilationsService.getById(compId);
     }

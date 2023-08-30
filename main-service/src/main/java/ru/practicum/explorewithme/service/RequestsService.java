@@ -6,9 +6,9 @@ import java.util.Collection;
 
 public interface RequestsService {
 
-    Collection<ParticipationRequestDto> getById(long userId);
+    Collection<ParticipationRequestDto> getById(Long userId);
 
-    ParticipationRequestDto create(long userId, long eventId);
+    ParticipationRequestDto create(Long userId, Long eventId);
 
-    ParticipationRequestDto update(long userId, long requestId);
+    ParticipationRequestDto update(Long userId, Long requestId);
 }

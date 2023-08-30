@@ -41,5 +41,4 @@ public class HitsServiceImpl implements HitsService {
             return hitRepository.getStats(start, end, urisList);
         }
     }
-
 }

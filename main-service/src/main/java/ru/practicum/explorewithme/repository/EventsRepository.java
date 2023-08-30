@@ -39,7 +39,7 @@ public interface EventsRepository extends JpaRepository<Event, Long> {
             "and ((:onlyAvailable = true and a.participantLimit > a.confirmedRequests) " +
             "or (:onlyAvailable = false)) "
     )
-    List<Event> getPublicEvents(String text,
+    List<Event> findAllPublic(String text,
                                 List<Long> categories,
                                 Boolean paid,
                                 LocalDateTime rangeStart,
@@ -51,10 +51,9 @@ public interface EventsRepository extends JpaRepository<Event, Long> {
 
     boolean existsByCategory(Category category);
 
-    List<Event> findByInitiator_id(long userId, Pageable page);
+    List<Event> findByInitiator_id(Long userId, Pageable page);
 
-    Optional<Event> findByIdAndInitiator_id(long id, long initiatorId);
+    Optional<Event> findByIdAndInitiator_id(Long id, Long initiatorId);
 
     Optional<Event> findByIdAndState(Long id, State state);
-
 }
