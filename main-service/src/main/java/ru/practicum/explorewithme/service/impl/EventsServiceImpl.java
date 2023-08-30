@@ -285,12 +285,14 @@ public class EventsServiceImpl implements EventsService {
         List<Event> events;
         if (rangeStart != null && rangeEnd != null) {
             if (rangeEnd.isBefore(rangeStart)) {
-                throw new TimeException("Дата начала не может быть раньше даты окончания");
+                throw new TimeException("Дата начала должна быть раньше даты окончания");
             }
         }
         if (sort != null) {
             if (sort.equalsIgnoreCase("EVENT_DATE")) {
                 pageable = PageRequest.of(from, size, Sort.by("eventDate").ascending());
+            } else {
+                pageable = PageRequest.of(from, size, Sort.by("views").ascending());
             }
         }
         events = eventsRepository.getPublicEvents(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, pageable);
@@ -307,11 +309,6 @@ public class EventsServiceImpl implements EventsService {
                 .timestamp(LocalDateTime.now().format(FORMAT))
                 .build();
         client.create(statDto);
-        if (sort != null) {
-            if (sort.equalsIgnoreCase("VIEWS")) {
-                return eventShortDtoList.stream().sorted(Comparator.comparingLong(EventShortDto::getViews)).collect(Collectors.toList());
-            }
-        }
         return eventShortDtoList;
     }
 
