@@ -28,5 +28,5 @@ GET &nbsp; &nbsp; http://localhost:8080/comments/{commentId} - позволяе�
 
 GET &nbsp; &nbsp; http://localhost:8080/comments/all/{eventId} - позволяет получить все комментарии к конкретному событию
 
-![img](https://github.com/{username}/{repository}/raw/main/{path}/img.png)
+![img](https://github.com/AleksandrDorofeev23/java-explore-with-me/raw/main/img.png)
 
