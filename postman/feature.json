@@ -325,6 +325,15 @@
         "request": {
           "method": "PATCH",
           "header": [],
+          "body": {
+            "mode": "raw",
+            "raw": "{{request_body}}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          },
           "url": {
             "raw": "{{baseUrl}}/users/:userId/comments/:commentId",
             "host": [
@@ -1012,28 +1021,28 @@
     ],
     "variable": [
       {
-        "id": "1e85f329-2f27-4066-91b4-4dcacf786654",
+        "id": "65e8ef2c-9fc8-437f-a39e-5f68973fb42d",
         "key": "baseUrl",
         "value": "http://localhost:8080"
       },
       {
-        "id": "55b1e77f-979f-4b70-aade-bd67bfc20aca",
+        "id": "c765d9d5-5179-4331-b9e5-26fef044fa33",
         "key": "userId",
         "value": ""
       },
       {
-        "id": "bfdf7b85-096d-4c98-bdea-bb0ce7b08baf",
+        "id": "081d651d-7b67-42f5-a1e6-991c3d44c522",
         "key": "response",
         "value": ""
       },
       {
-        "id": "5f953489-575a-4fec-bbb7-874c1a955794",
+        "id": "1f6dcd3e-1556-4d9b-bc05-7a7636bf6b9c",
         "key": "commentId",
         "value": "",
         "type": "string"
       },
       {
-        "id": "956ab4b7-6e6c-4ca6-a36f-f09c75835606",
+        "id": "2330e653-1dec-433e-9e7b-2ff8649e3f30",
         "key": "eventId",
         "value": "",
         "type": "string"
