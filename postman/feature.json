@@ -198,11 +198,11 @@
                 "});",
                 "",
                 "pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {",
-                "    pm.expect(target.id).equal(target.id, 'id кооментария должен соовпадать с отправленным');",
-                "    pm.expect(source.text).equal(target.text, 'Текст коментария должен совпадать с отправленным');",
-                "    pm.expect(source.date).equal(target.date, 'Дата коментария должна совпадать с отправленным');",
-                "    pm.expect(source.author.id).equal(target.author.id, 'Автор коментария должен совпадать с отправленным');",
-                "    pm.expect(source.event).equal(target.event, 'Событие коментария должно совпадать с отправленным');",
+                "    pm.expect(target.id).equal(target.id, 'id комментария должен соовпадать с отправленным');",
+                "    pm.expect(source.text).equal(target.text, 'Текст комментария должен совпадать с отправленным');",
+                "    pm.expect(source.date).equal(target.date, 'Дата комментария должна совпадать с отправленным');",
+                "    pm.expect(source.author.id).equal(target.author.id, 'Автор комментария должен совпадать с отправленным');",
+                "    pm.expect(source.event).equal(target.event, 'Событие комментария должно совпадать с отправленным');",
                 "});"
               ],
               "type": "text/javascript"
@@ -310,7 +310,7 @@
                 "});",
                 "",
                 "pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {",
-                "    pm.expect(source.text).equal(target.text, 'Текст коментария должен совпадать с отправленным');",
+                "    pm.expect(source.text).equal(target.text, 'Текст комментария должен совпадать с отправленным');",
                 "});",
                 ""
               ],
