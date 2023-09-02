@@ -254,8 +254,6 @@
                 "        let eventBody = rnd.getEvent(category.id);",
                 "        let event = await api.addEvent(user.id, eventBody);",
                 "        event = await api.publishEvent(event.id);",
-                "        pm.request.removeQueryParams(['eventId']);",
-                "        pm.request.addQueryParams([`eventId=` + event.id]);",
                 "        pm.collectionVariables.set('userId', user.id);",
                 "        comment = await api.addComment(user.id, event.id, rnd.getComment());",
                 "        pm.collectionVariables.set(\"commentId\", comment.id);",
