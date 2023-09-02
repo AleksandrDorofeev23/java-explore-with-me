@@ -75,4 +75,14 @@ public class ExceptionsHandler {
                 .collect(Collectors.toList());
         return new ApiError(null, e.getMessage(), BAD_REQUEST, "Неверное время", LocalDateTime.now());
     }
+
+    @ExceptionHandler
+    @ResponseStatus(FORBIDDEN)
+    public ApiError banException(final BanException e) {
+        log.info(e.getMessage());
+        List<String> trace = Arrays.stream(e.getStackTrace())
+                .map(StackTraceElement::toString)
+                .collect(Collectors.toList());
+        return new ApiError(null, e.getMessage(), FORBIDDEN, "Пользователь заблокирован", LocalDateTime.now());
+    }
 }

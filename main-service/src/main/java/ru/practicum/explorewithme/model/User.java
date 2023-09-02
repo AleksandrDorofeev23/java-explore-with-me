@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -20,4 +21,6 @@ public class User {
     private Long id;
     @Column(name = "name")
     private String name;
+    @Column(name = "banned")
+    private LocalDateTime banned;
 }
